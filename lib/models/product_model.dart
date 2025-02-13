@@ -1,7 +1,7 @@
 import '../utils/config.dart';
 
 class ProductModel {
-  final int id;
+  final String id;
   final String name;
   final String category;
   final String description;
@@ -27,19 +27,13 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['_id'] is String ? int.tryParse(json['_id']) ?? 0 : json['_id'],
-      name: json['name'],
-      category: json['category'],
-      description: json['description'],
-      price: json['price'] is String
-          ? double.tryParse(json['price'].toString()) ?? 0.0
-          : json['price'].toDouble(),
-      salePrice: json['salePrice'] != null
-          ? (json['salePrice'] is String
-          ? double.tryParse(json['salePrice'].toString())
-          : json['salePrice'].toDouble())
-          : null,
-      stock: json['stock'],
+      id: json['_id'] ?? '',
+      name: json['name'] ?? '',
+      category: json['category'] ?? '',
+      description: json['description'] ?? '',
+      price: json['price'] is num ? json['price'].toDouble() : 0.0,
+      salePrice: json['salePrice'] is num ? json['salePrice'].toDouble() : null,
+      stock: json['stock'] is num ? json['stock'] : 0,
       image: '${AppConfig.baseUrl}/uploads/${json['image']}',
       colors: List<String>.from(json['colors'] ?? []),
       sizes: List<String>.from(json['sizes'] ?? []),

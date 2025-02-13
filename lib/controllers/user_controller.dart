@@ -13,44 +13,76 @@ class UserController extends GetxController {
 
   // Fetch user data from API
   Future<void> fetchUserData() async {
-    final token = await _prefsController.getToken();
-    final response = await http.get(
-      Uri.parse(AppConfig.meUrl),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
+    try {
+      final token = await _prefsController.getToken();
+      if (token == null) {
+        print('No token found');
+        return;
+      }
 
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
-      user.value = User.fromJson(jsonResponse['data']);
-    } else {
-      // Handle error
-      print('Failed to load user data: ${response.statusCode}');
+      final response = await http.get(
+        Uri.parse(AppConfig.meUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        if (jsonResponse['status'] == 'success') {
+          user.value = User.fromJson(jsonResponse['data']);
+        } else {
+          print('Failed to load user data: ${jsonResponse['message']}');
+          Get.snackbar('Error', jsonResponse['message'] ?? 'Failed to load user data');
+        }
+      } else {
+        print('Failed to load user data: ${response.statusCode}');
+        Get.snackbar('Error', 'Failed to load user data');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      Get.snackbar('Error', 'Failed to connect to server');
     }
   }
 
   // Fetch orders for the authenticated user
-// user_controller.dart
   Future<void> fetchOrders() async {
-    final token = await _prefsController.getToken();
-    final response = await http.get(
-      Uri.parse(AppConfig.ordersUrl),
-      headers: {
-        'Authorization': 'Bearer $token',
-      },
-    );
+    try {
+      final token = await _prefsController.getToken();
+      if (token == null) {
+        print('No token found');
+        return;
+      }
 
-    if (response.statusCode == 200) {
-      final jsonResponse = json.decode(response.body);
-      orders.value = (jsonResponse['orders'] as List)
-          .map((orderJson) => Order.fromJson(orderJson))
-          .toList();
-    } else {
-      // Handle error
-      print('Failed to load orders: ${response.statusCode}');
+      final response = await http.get(
+        Uri.parse(AppConfig.ordersUrl),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        if (jsonResponse['status'] == 'success') {
+          orders.value = (jsonResponse['orders'] as List)
+              .map((orderJson) => Order.fromJson(orderJson))
+              .toList();
+        } else {
+          print('Failed to load orders: ${jsonResponse['message']}');
+          Get.snackbar('Error', jsonResponse['message'] ?? 'Failed to load orders');
+        }
+      } else {
+        print('Failed to load orders: ${response.statusCode}');
+        Get.snackbar('Error', 'Failed to load orders');
+      }
+    } catch (e) {
+      print('Error fetching orders: $e');
+      Get.snackbar('Error', 'Failed to connect to server');
     }
   }
-
 }

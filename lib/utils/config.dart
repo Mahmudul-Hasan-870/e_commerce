@@ -5,7 +5,7 @@ class AppConfig {
   static const String registerUrl = '$baseUrl/api/auth/register';
   static const String loginUrl = '$baseUrl/api/auth/login';
   static const String usersUrl = '$baseUrl/api/users';
-  static const String meUrl = '$baseUrl/api/me';
+  static const String meUrl = '$baseUrl/api/auth/profile';
   static const String ordersUrl = '$baseUrl/api/orders';
   static const String forgotPasswordUrl = '$baseUrl/api/auth/forgotPassword';
   static const String resetPasswordUrl = '$baseUrl/api/auth/resetPassword';
