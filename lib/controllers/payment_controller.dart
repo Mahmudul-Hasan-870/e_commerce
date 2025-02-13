@@ -25,19 +25,20 @@ class PaymentController extends GetxController {
       return;
     }
 
-    if (selectedOptionIndex == 0) { // Stripe payment option
-      try {
+    try {
+      if (selectedOptionIndex == 0) { // Stripe payment option
         await StripeService.instance.makePayment(amount);
+        // Only process order after successful payment
         await processOrder("success");
-        Get.snackbar("Success", "Payment processed successfully!");
-      } catch (e) {
-        Get.snackbar("Error", "Payment failed: $e");
+      } else if (selectedOptionIndex == 2) { // Cash on Delivery option
+        await processOrder("cash_on_delivery");
+      } else {
+        Get.snackbar("Error", "Selected payment option is not available.");
+        return;
       }
-    } else if (selectedOptionIndex == 2) { // Cash on Delivery option
-      await processOrder("cash_on_delivery");
-      Get.snackbar("Success", "Order placed successfully!");
-    } else {
-      Get.snackbar("Error", "Selected payment option is not available.");
+    } catch (e) {
+      Get.snackbar("Error", "Payment failed: $e");
+      return;
     }
   }
 
@@ -54,44 +55,88 @@ class PaymentController extends GetxController {
       return;
     }
 
-    final selectedAddress = shippingController
-        .addresses[shippingController.selectedAddressIndex.value];
-    final selectedDeliveryOption = getDeliveryOption(shippingController.selectedDeliveryOptionIndex.value);
-
-    // Calculate the total amount for the order
-    final double totalAmount = cartController.getTotalPrice();
-
-    final order = OrderModel(
-      items: cartController.getCartItems(),
-      deliveryAddress: selectedAddress,
-      deliveryOption: selectedDeliveryOption,
-      paymentStatus: paymentStatus,
-      orderStatus: paymentStatus == "cash_on_delivery" ? "pending" : "processed",
-      totalAmount: totalAmount, // Set totalAmount here
-    );
-
     try {
+      final selectedAddress = shippingController
+          .addresses[shippingController.selectedAddressIndex.value];
+      final selectedDeliveryOption = getDeliveryOption(
+          shippingController.selectedDeliveryOptionIndex.value);
+
+      final double totalAmount = cartController.getTotalPrice();
+
+      // Create order data in the format expected by the API
+      final orderData = {
+        'items': cartController.getCartItems().map((item) => {
+          'product_name': item.title,
+          'quantity': item.quantity,
+          'price': item.price,
+          'total': (double.parse(item.price) * item.quantity).toString(),
+          'image_url': item.imageUrl,
+          'color': item.color,
+          'size': item.size,
+        }).toList(),
+        'delivery_address': {
+          'first_name': selectedAddress.firstName,
+          'last_name': selectedAddress.lastName,
+          'phone_number': selectedAddress.phoneNumber,
+          'address': selectedAddress.address,
+          'city': selectedAddress.city,
+          'country': selectedAddress.country,
+          'state': selectedAddress.state,
+          'postal_code': selectedAddress.postalCode
+        },
+        'delivery_option': selectedDeliveryOption,
+        'payment_status': paymentStatus,
+        'order_status': paymentStatus == "cash_on_delivery" ? "pending" : "processed",
+        'total_amount': totalAmount,
+      };
+
       final response = await http.post(
         Uri.parse(AppConfig.productsOrdersUrl),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        body: jsonEncode(order.toJson()),
+        body: jsonEncode(orderData),
       );
 
       print("Response status: ${response.statusCode}");
-      print("Response body: ${response.body}");
+      print("Response body: ${response.body}"); // For debugging
 
-      if (response.statusCode == 200) {
-        Get.to(() => OrderConfirmationScreen(deliveryOption: selectedDeliveryOption));
+      if (response.statusCode == 200 || response.statusCode == 201) {
         await cartController.clearCart();
+        // Show success message based on payment type
+        if (paymentStatus == "success") {
+          Get.snackbar(
+            "Success", 
+            "Payment and order processed successfully!",
+            snackPosition: SnackPosition.TOP,
+            duration: Duration(seconds: 3),
+          );
+        } else {
+          Get.snackbar(
+            "Success", 
+            "Order placed successfully!",
+            snackPosition: SnackPosition.TOP,
+            duration: Duration(seconds: 3),
+          );
+        }
+        Get.to(() => OrderConfirmationScreen(deliveryOption: selectedDeliveryOption));
       } else {
-        Get.snackbar('Error', 'Failed to place the order: ${response.body}');
+        Get.snackbar(
+          'Error', 
+          'Failed to place the order. Please try again.',
+          snackPosition: SnackPosition.TOP,
+          duration: Duration(seconds: 3),
+        );
       }
     } catch (error) {
-      Get.snackbar('Error', 'An error occurred: $error');
-      print("Error: $error");
+      print("Error details: $error"); // For debugging
+      Get.snackbar(
+        'Error', 
+        'An error occurred while processing your order. Please try again.',
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 3),
+      );
     }
   }
 
