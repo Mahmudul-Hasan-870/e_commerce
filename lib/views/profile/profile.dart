@@ -1,107 +1,73 @@
+import 'package:e_commerce/views/shipping/address_screen.dart';
+import 'package:e_commerce/views/track_order/track_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconly/iconly.dart';
 import '../../controllers/user_controller.dart';
 import '../order_history.dart';
+import '../../widgets/profile/profile_app_bar.dart';
+import '../../widgets/profile/profile_header.dart';
+import '../../widgets/profile/profile_menu_item.dart';
+import '../../widgets/profile/profile_bottom_section.dart';
 
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({Key? key}) : super(key: key);
 
-class ProfilePage extends StatelessWidget {
   final UserController userController = Get.put(UserController());
+  final ProfileBottomSection bottomSection = const ProfileBottomSection();
 
   @override
   Widget build(BuildContext context) {
-    // Fetch user data when the widget is built
+    // Fetch user data when the screen is built
     userController.fetchUserData();
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      body: SafeArea(
+      backgroundColor: Colors.white,
+      appBar: const ProfileAppBar(),
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            // Back button and profile title
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Row(
-                children: [
-                  Icon(Icons.arrow_back, color: Colors.black),
-                  SizedBox(width: 16),
-                  Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+            const ProfileHeader(),
+            const Divider(),
+            ProfileMenuItem(
+              icon: IconlyBold.profile,
+              iconColor: const Color(0xFF7267CB),  // Deep Purple
+              title: 'Edit Profile',
+              onTap: () {},
             ),
-            // Profile picture, name, and status
-            CircleAvatar(
-              radius: 60,
-              backgroundImage: NetworkImage("https://robohash.org/stefan-one"),
+            ProfileMenuItem(
+              icon: IconlyBold.buy,
+              iconColor: const Color(0xFF4CAF50),  // Material Green
+              title: 'My Orders',
+              onTap: () {
+                // Handle My Orders tap
+                Get.to(() => TrackOrderScreen());
+              },
             ),
-            SizedBox(height: 16),
-            Obx(() => Text(
-              userController.user.value.name.isNotEmpty
-                  ? userController.user.value.name
-                  : 'Loading...',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-            SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.circle, color: Colors.green, size: 10),
-                SizedBox(width: 4),
-                Text(
-                  'Active status',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
+            ProfileMenuItem(
+              icon: IconlyBold.shield_done,
+              iconColor: const Color(0xFF2196F3),  // Material Blue
+              title: 'Privacy Policy',
+              onTap: bottomSection.showPrivacyPolicy,
             ),
-            SizedBox(height: 24),
-            // Menu items
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-                ),
-                child: ListView(
-                  padding: EdgeInsets.all(16),
-                  children: [
-                    buildMenuItem(Icons.person, 'Edit Profile'),
-                    buildMenuItem(Icons.location_on, 'Shopping Address'),
-                    buildMenuItem(Icons.favorite, 'Wishlist'),
-                    buildMenuItem(Icons.history, 'Order History', () {
-                      Get.to(OrdersPage()); // Navigate to OrderHistoryPage
-                    }),
-                    buildMenuItem(Icons.notifications, 'Notification'),
-                    buildMenuItem(Icons.credit_card, 'Cards'),
-                  ],
-                ),
-              ),
+            ProfileMenuItem(
+              icon: IconlyBold.paper,
+              iconColor: const Color(0xFFFF9800),  // Material Orange
+              title: 'Terms of Service',
+              onTap: bottomSection.showTermsOfService,
             ),
+            ProfileMenuItem(
+              icon: IconlyBold.logout,
+              iconColor: const Color(0xFFE53935),  // Material Red
+              title: 'Logout',
+              onTap: () {
+                // Handle Logout tap
+              },
+            ),
+            const ProfileBottomSection(),
           ],
         ),
       ),
-    );
-  }
-
-  // Reusable widget for menu items
-  Widget buildMenuItem(IconData icon, String text, [VoidCallback? onTap]) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.grey[600]),
-      title: Text(
-        text,
-        style: TextStyle(fontSize: 18, color: Colors.black),
-      ),
-      trailing: Icon(Icons.arrow_forward_ios, color: Colors.grey[600], size: 16),
-      onTap: onTap ?? () {
-        // Default action if no onTap provided
-      },
     );
   }
 }

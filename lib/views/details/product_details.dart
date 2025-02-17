@@ -174,7 +174,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                 Text(
                                   '\$${productPriceDouble.toStringAsFixed(2)}',
                                   style: GoogleFonts.poppins(
-                                    color: Colors.red,
+                                    color: AppColors.primaryColor,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 20.0,
                                   ),
@@ -290,13 +290,13 @@ class ProductDetailsScreen extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,
-                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       shape: const CircleBorder(),
                     ),
                     child: const Icon(
                       IconlyLight.buy,
                       size: 24.0,
+                      color: Colors.white,
                     ),
                   ),
                   const SizedBox(width: 10.0),

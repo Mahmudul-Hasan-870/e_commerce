@@ -75,9 +75,9 @@ class PaymentController extends GetxController {
           'size': item.size,
         }).toList(),
         'delivery_address': {
-          'first_name': selectedAddress.firstName,
-          'last_name': selectedAddress.lastName,
-          'phone_number': selectedAddress.phoneNumber,
+          'firstName': selectedAddress.firstName,
+          'lastName': selectedAddress.lastName,
+          'phoneNumber': selectedAddress.phoneNumber,
           'address': selectedAddress.address,
           'city': selectedAddress.city,
           'country': selectedAddress.country,
@@ -86,7 +86,9 @@ class PaymentController extends GetxController {
         },
         'delivery_option': selectedDeliveryOption,
         'payment_status': paymentStatus,
-        'order_status': paymentStatus == "cash_on_delivery" ? "pending" : "processed",
+        'order_status': paymentStatus == "cash_on_delivery" 
+            ? "pending" 
+            : "processed",  // For successful payment, status will be 'processed'
         'total_amount': totalAmount,
       };
 

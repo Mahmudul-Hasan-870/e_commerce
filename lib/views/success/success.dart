@@ -1,5 +1,6 @@
 import 'package:e_commerce/utils/colors.dart';
 import 'package:e_commerce/views/home/home.dart';
+import 'package:e_commerce/views/track_order/track_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -82,8 +83,7 @@ class OrderConfirmationScreen extends StatelessWidget {
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  // Navigate back to shopping
-                  Get.offAll(() => PrimaryScreen());
+                  Get.off(() => TrackOrderScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
@@ -95,7 +95,7 @@ class OrderConfirmationScreen extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Continue Shopping',
+                  'Track Order',
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       color: Colors.white,

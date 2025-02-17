@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:e_commerce/controllers/prefs_controller.dart';
 import 'package:e_commerce/views/auth/login/login.dart';
+import 'package:e_commerce/widgets/primary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,60 +12,113 @@ import 'package:motion_toast/motion_toast.dart';
 import '../utils/config.dart';
 
 class RegisterController extends GetxController {
+  late TextEditingController nameController;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  // Observable variables
   var isLoading = false.obs;
+  var isObscure = true.obs;
+
   final SharedPreferencesController _prefsController =
       SharedPreferencesController();
 
-  Future<void> register(
-      BuildContext context, String name, String email, String password) async {
-    isLoading.value = true;
+  @override
+  void onInit() {
+    super.onInit();
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  void togglePasswordVisibility() {
+    isObscure.value = !isObscure.value;
+  }
+
+  void clearControllers() {
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+  }
+
+  Future<void> register() async {
     try {
+      isLoading.value = true;
+
+      // Validate input fields
+      if (nameController.text.isEmpty || 
+          emailController.text.isEmpty || 
+          passwordController.text.isEmpty) {
+        Get.snackbar(
+          'Error',
+          'Please fill in all fields',
+          backgroundColor: Colors.red[100],
+          colorText: Colors.red[900],
+        );
+        return;
+      }
+
       final response = await http.post(
         Uri.parse(AppConfig.registerUrl),
-        body: jsonEncode({
-          'name': name,
-          'email': email,
-          'password': password,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'name': nameController.text.trim(),
+          'email': emailController.text.trim(),
+          'password': passwordController.text,
         }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
       );
 
-      final data = jsonDecode(response.body);
+      final data = json.decode(response.body);
 
-      if (response.statusCode == 200 && data['status'] == 'success') {
-        // Save token using SharedPreferencesController
-        await _prefsController.saveToken(data['token']);
-
-        MotionToast.success(
-          toastDuration: const Duration(seconds: 5),
-          description: Text(
-            data['message'],
-            style: GoogleFonts.poppins(),
-          ),
-        ).show(context);
-        Get.offAll(() => const LoginScreen());
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        if (data['status'] == 'success') {
+          clearControllers(); // Clear the text fields
+          // Remove token saving
+          // await _prefsController.saveToken(data['token']);
+          
+          Get.snackbar(
+            'Success',
+            'Registration successful',
+            backgroundColor: Colors.green[100],
+            colorText: Colors.green[900],
+          );
+          await Future.delayed(const Duration(seconds: 1));
+          // Navigate to LoginScreen instead of PrimaryScreen
+          Get.offAll(() => LoginScreen());
+        } else {
+          Get.snackbar(
+            'Error',
+            data['message'] ?? 'Registration failed',
+            backgroundColor: Colors.red[100],
+            colorText: Colors.red[900],
+          );
+        }
       } else {
-        MotionToast.error(
-          toastDuration: const Duration(seconds: 5),
-          description: Text(
-            data['message'] ?? 'An error occurred',
-            style: GoogleFonts.poppins(),
-          ),
-        ).show(context);
+        Get.snackbar(
+          'Error',
+          data['message'] ?? 'Failed to connect to server',
+          backgroundColor: Colors.red[100],
+          colorText: Colors.red[900],
+        );
       }
     } catch (e) {
-      // Handle exceptions here
-      MotionToast.error(
-        toastDuration: const Duration(seconds: 5),
-        description: Text(
-          'Please try again later',
-          style: GoogleFonts.poppins(),
-        ),
-      ).show(context);
+      Get.snackbar(
+        'Error',
+        'An error occurred',
+        backgroundColor: Colors.red[100],
+        colorText: Colors.red[900],
+      );
     } finally {
       isLoading.value = false;
     }
+  }
+
+  @override
+  void onClose() {
+    // Dispose controllers in onClose instead of dispose
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.onClose();
   }
 }

@@ -92,6 +92,6 @@ class NavigationController extends GetxController {
     HomeScreen(),
     CategoryScreen(),
     WishlistScreen(),
-   ProfilePage(),
+   ProfileScreen(),
   ];
 }

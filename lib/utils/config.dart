@@ -11,6 +11,7 @@ class AppConfig {
   static const String resetPasswordUrl = '$baseUrl/api/auth/resetPassword';
   static const String productsUrl = '$baseUrl/api/products';
   static const String productsOrdersUrl = '$baseUrl/api/order';
+  static const String categoriesUrl = '$baseUrl/api/admin/categories/names';
 
   static const String stripePublishableKey =
       "pk_test_51P9nVoRrokKxR1k7GYpiCd7B9ZVwmR7MBuYx28GmKrRsaOPUHmSMSIESH62ZVDwx6IFlN8xSz7br9cg0LzfLVbrK00uFBuBNzr";

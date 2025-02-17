@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/user_controller.dart';
 import 'order_details_page.dart'; // Import the order details page
 
-class OrdersPage extends StatelessWidget {
+class OrdersHistoryScreen extends StatelessWidget {
   final UserController userController = Get.put(UserController());
 
   @override

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:e_commerce/views/auth/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,50 +9,108 @@ import 'package:motion_toast/motion_toast.dart';
 import '../utils/config.dart';
 
 class ResetPasswordController extends GetxController {
+  late TextEditingController otpController;
+  late TextEditingController newPasswordController;
   var isLoading = false.obs;
+  var isObscure = true.obs;
 
-  Future<void> resetPassword(
-      BuildContext context, String otp, String newPassword) async {
-    isLoading.value = true;
+  @override
+  void onInit() {
+    super.onInit();
+    otpController = TextEditingController();
+    newPasswordController = TextEditingController();
+  }
+
+  void togglePasswordVisibility() {
+    isObscure.value = !isObscure.value;
+  }
+
+  void clearControllers() {
+    otpController.clear();
+    newPasswordController.clear();
+  }
+
+  /// Send Reset Password Link
+  Future<void> resetPassword() async {
     try {
+      if (otpController.text.isEmpty || newPasswordController.text.isEmpty) {
+        Get.snackbar(
+          'Error',
+          'Please fill in all fields',
+          backgroundColor: Colors.red[100],
+          colorText: Colors.red[900],
+        );
+        return;
+      }
+
+      isLoading.value = true;
+
+      // Print request details for debugging
+      print('Request URL: ${AppConfig.resetPasswordUrl}');
+      print('Request Body: ${json.encode({
+        'otp': otpController.text.trim(),
+        'password': newPasswordController.text, // Changed from new_password to password
+      })}');
+
       final response = await http.post(
         Uri.parse(AppConfig.resetPasswordUrl),
-        body: jsonEncode({'otp': otp, 'password': newPassword}),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'otp': otpController.text.trim(),
+          'password': newPasswordController.text, // Changed from new_password to password
+        }),
       );
 
-      final data = jsonDecode(response.body);
+      // Print response for debugging
+      print('Response Status: ${response.statusCode}');
+      print('Response Body: ${response.body}');
 
-      if (response.statusCode == 200 && data['status'] == 'success') {
-        MotionToast.success(
-          toastDuration: const Duration(seconds: 5),
-          description: Text(
-            data['message'],
-            style: GoogleFonts.poppins(),
-          ),
-        ).show(context);
-        Get.offAll(() => const LoginScreen());
+      final data = json.decode(response.body);
+
+      if (response.statusCode == 200) {
+        if (data['status'] == 'success') {
+          clearControllers();
+          Get.snackbar(
+            'Success',
+            'Password reset successful',
+            backgroundColor: Colors.green[100],
+            colorText: Colors.green[900],
+          );
+          await Future.delayed(const Duration(seconds: 1));
+          Get.offAll(() => LoginScreen());
+        } else {
+          Get.snackbar(
+            'Error',
+            data['message'] ?? 'Password reset failed',
+            backgroundColor: Colors.red[100],
+            colorText: Colors.red[900],
+          );
+        }
       } else {
-        MotionToast.error(
-          toastDuration: const Duration(seconds: 5),
-          description: Text(
-            data['message'] ?? 'An error occurred',
-            style: GoogleFonts.poppins(),
-          ),
-        ).show(context);
+        Get.snackbar(
+          'Error',
+          data['message'] ?? 'Failed to connect to server',
+          backgroundColor: Colors.red[100],
+          colorText: Colors.red[900],
+        );
       }
     } catch (e) {
-      MotionToast.error(
-        toastDuration: const Duration(seconds: 5),
-        description: Text(
-          'Please try again later',
-          style: GoogleFonts.poppins(),
-        ),
-      ).show(context);
+      print('Error: $e'); // Add error logging
+      Get.snackbar(
+        'Error',
+        'An error occurred',
+        backgroundColor: Colors.red[100],
+        colorText: Colors.red[900],
+      );
     } finally {
       isLoading.value = false;
     }
+  }
+
+  @override
+  void onClose() {
+    otpController.dispose();
+    newPasswordController.dispose();
+    super.onClose();
   }
 }

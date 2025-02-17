@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Get.offAll(() => const PrimaryScreen()); // Navigate to HomeScreen if token exists
     } else {
       Get.offAll(
-          () => const LoginScreen()); // Navigate to LoginScreen if no token
+          () =>  LoginScreen()); // Navigate to LoginScreen if no token
     }
   }
 

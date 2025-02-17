@@ -5,6 +5,7 @@ import '../models/wishlist_model.dart';
 class WishlistController extends GetxController {
   final Box<WishlistModel> wishlistBox = Hive.box<WishlistModel>('wishlistBox');
   var wishlistItems = <WishlistModel>[].obs;
+  var isLoading = false.obs;
 
   @override
   void onInit() {
@@ -12,9 +13,14 @@ class WishlistController extends GetxController {
     loadWishlist();
   }
 
-  // Load all items from the Hive wishlist box into the GetX list
-  void loadWishlist() {
-    wishlistItems.value = wishlistBox.values.toList();
+  Future<void> loadWishlist() async {
+    try {
+      isLoading.value = true;
+      await Future.delayed(const Duration(milliseconds: 500)); // Optional: simulate loading
+      wishlistItems.value = wishlistBox.values.toList();
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   // Add an item to the wishlist

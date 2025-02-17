@@ -38,7 +38,7 @@ dependencies:
   motion_toast:
   google_fonts:
   get:
-  flutter_svg:
+  flutter_svg: ^2.0.9
   iconly:
   http:
   shared_preferences:
@@ -51,7 +51,8 @@ dependencies:
   hive_flutter:
   path_provider:
   flutter_stripe:
-  intl:
+  intl: ^0.18.0
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:

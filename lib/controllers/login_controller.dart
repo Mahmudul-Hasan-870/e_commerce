@@ -11,60 +11,107 @@ import 'package:motion_toast/motion_toast.dart';
 import '../utils/config.dart';
 import '../widgets/primary_screen.dart';
 
-class LoginController extends GetxController {
-  var isLoading = false.obs;
-  final SharedPreferencesController _prefsController =
-      SharedPreferencesController();
+class LoginController extends GetxService {
+  // Dependencies
+  final SharedPreferencesController _prefsController = SharedPreferencesController();
 
-  Future<void> login(
-      BuildContext context, String email, String password) async {
-    isLoading.value = true;
+  // Text Controllers
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  // Observable States
+  final RxBool isLoading = false.obs;
+  final RxBool isObscure = true.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    initializeControllers();
+  }
+
+  // Initialize text controllers
+  void initializeControllers() {
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  // Toggle password visibility
+  void togglePasswordVisibility() => isObscure.value = !isObscure.value;
+
+  // Clear text fields
+  void clearControllers() {
+    emailController.clear();
+    passwordController.clear();
+  }
+
+  // Validate input fields
+  bool _validateInputs() {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      _showErrorSnackbar('Please fill in all fields');
+      return false;
+    }
+    return true;
+  }
+
+  // Show error snackbar
+  void _showErrorSnackbar(String message) {
+    Get.snackbar(
+      'Error',
+      message,
+      backgroundColor: Colors.red[100],
+      colorText: Colors.red[900],
+    );
+  }
+
+  // Show success snackbar
+  void _showSuccessSnackbar(String message) {
+    Get.snackbar(
+      'Success',
+      message,
+      backgroundColor: Colors.green[100],
+      colorText: Colors.green[900],
+    );
+  }
+
+  // Login method
+  Future<void> login(BuildContext context) async {
     try {
-      final response = await http.post(
-        Uri.parse(AppConfig.loginUrl),
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
+      if (!_validateInputs()) return;
+      
+      isLoading.value = true;
 
-      final data = jsonDecode(response.body);
+      final response = await _performLoginRequest();
+      final data = json.decode(response.body);
 
       if (response.statusCode == 200 && data['status'] == 'success') {
-        // Save or update token using SharedPreferencesController
-        await _prefsController.saveToken(data['token']);
-
-        MotionToast.success(
-          toastDuration: const Duration(seconds: 5),
-          description: Text(
-            data['message'],
-            style: GoogleFonts.poppins(),
-          ),
-        ).show(context);
-        Get.offAll(() => const PrimaryScreen());
+        await _handleSuccessfulLogin(data);
       } else {
-        MotionToast.error(
-          toastDuration: const Duration(seconds: 5),
-          description: Text(
-            data['message'] ?? 'An error occurred',
-            style: GoogleFonts.poppins(),
-          ),
-        ).show(context);
+        _showErrorSnackbar(data['message'] ?? 'Login failed');
       }
     } catch (e) {
-      // Handle exceptions here
-      MotionToast.error(
-        toastDuration: const Duration(seconds: 5),
-        description: Text(
-          'Please try again later',
-          style: GoogleFonts.poppins(),
-        ),
-      ).show(context);
+      _showErrorSnackbar('An error occurred');
     } finally {
       isLoading.value = false;
     }
+  }
+
+  // Perform login API request
+  Future<http.Response> _performLoginRequest() async {
+    return await http.post(
+      Uri.parse(AppConfig.loginUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
+        'email': emailController.text.trim(),
+        'password': passwordController.text,
+      }),
+    );
+  }
+
+  // Handle successful login
+  Future<void> _handleSuccessfulLogin(Map<String, dynamic> data) async {
+    await _prefsController.saveToken(data['token']);
+    clearControllers();
+    _showSuccessSnackbar('Login successful');
+    Get.offAll(() => const PrimaryScreen());
   }
 }

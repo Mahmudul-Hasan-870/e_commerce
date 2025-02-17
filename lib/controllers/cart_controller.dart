@@ -5,63 +5,104 @@ import '../models/cart_model.dart';
 class CartController extends GetxController {
   var cartItems = <CartModel>[].obs;
   late Box<CartModel> cartBox;
+  RxBool isLoading = false.obs;
+  RxBool hasError = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-    loadCartFromHive(); // Load cart items from Hive when the controller is initialized
+    loadCartFromHive();
   }
 
   Future<void> loadCartFromHive() async {
-    cartBox = Hive.box<CartModel>('cartBox');
-    cartItems.addAll(cartBox.values.toList()); // Load all items from Hive
+    try {
+      isLoading.value = true;
+      hasError.value = false;
+      cartItems.clear(); // Clear existing items first
+      cartBox = Hive.box<CartModel>('cartBox');
+      cartItems.addAll(cartBox.values.toList());
+    } catch (e) {
+      hasError.value = true;
+      print('Error loading cart: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> addToCart(CartModel item) async {
-    final existingItemIndex = cartItems.indexWhere((cartItem) =>
-    cartItem.title == item.title &&
-        cartItem.size == item.size &&
-        cartItem.price == item.price);
+    try {
+      final existingItemIndex = cartItems.indexWhere((cartItem) =>
+          cartItem.title == item.title &&
+          cartItem.size == item.size &&
+          cartItem.price == item.price &&
+          cartItem.color == item.color);
 
-    if (existingItemIndex != -1) {
-      // Update existing item quantity
-      cartItems[existingItemIndex].quantity += item.quantity;
-      cartItems.refresh(); // Notify listeners about the change
-      await cartBox.putAt(existingItemIndex, cartItems[existingItemIndex]); // Update the item in Hive
-    } else {
-      // Add new item to cartItems and Hive
-      cartItems.add(item);
-      await cartBox.add(item); // Add the item to Hive
+      if (existingItemIndex != -1) {
+        cartItems[existingItemIndex].quantity += item.quantity;
+        cartItems.refresh();
+        await cartBox.clear();
+        await cartBox.addAll(cartItems);
+      } else {
+        cartItems.add(item);
+        await cartBox.clear();
+        await cartBox.addAll(cartItems);
+      }
+    } catch (e) {
+      hasError.value = true;
+      print('Error adding to cart: $e');
     }
   }
 
   Future<void> removeFromCart(int index) async {
-    if (index >= 0 && index < cartItems.length) {
-      await cartBox.deleteAt(index); // Remove the item from Hive
-      cartItems.removeAt(index);
+    try {
+      if (index >= 0 && index < cartItems.length) {
+        cartItems.removeAt(index);
+        await cartBox.clear();
+        await cartBox.addAll(cartItems);
+      }
+    } catch (e) {
+      hasError.value = true;
+      print('Error removing from cart: $e');
     }
   }
 
-  Future<void> clearCart() async {
-    await cartBox.clear(); // Clear all items from Hive
-    cartItems.clear(); // Clear the list of items in memory
-  }
-
   Future<void> increaseQuantity(int index) async {
-    if (index >= 0 && index < cartItems.length) {
-      cartItems[index].quantity++;
-      cartItems.refresh(); // Notify listeners about the change
-      await cartBox.putAt(index, cartItems[index]); // Update the quantity in Hive
+    try {
+      if (index >= 0 && index < cartItems.length) {
+        cartItems[index].quantity++;
+        cartItems.refresh();
+        await cartBox.clear();
+        await cartBox.addAll(cartItems);
+      }
+    } catch (e) {
+      hasError.value = true;
+      print('Error increasing quantity: $e');
     }
   }
 
   Future<void> decreaseQuantity(int index) async {
-    if (index >= 0 && index < cartItems.length) {
-      if (cartItems[index].quantity > 1) {
-        cartItems[index].quantity--;
-        cartItems.refresh(); // Notify listeners about the change
-        await cartBox.putAt(index, cartItems[index]); // Update the quantity in Hive
+    try {
+      if (index >= 0 && index < cartItems.length) {
+        if (cartItems[index].quantity > 1) {
+          cartItems[index].quantity--;
+          cartItems.refresh();
+          await cartBox.clear();
+          await cartBox.addAll(cartItems);
+        }
       }
+    } catch (e) {
+      hasError.value = true;
+      print('Error decreasing quantity: $e');
+    }
+  }
+
+  Future<void> clearCart() async {
+    try {
+      await cartBox.clear();
+      cartItems.clear();
+    } catch (e) {
+      hasError.value = true;
+      print('Error clearing cart: $e');
     }
   }
 
@@ -75,5 +116,20 @@ class CartController extends GetxController {
 
   List<CartModel> getCartItems() {
     return cartItems.toList();
+  }
+
+  Future<void> fetchCart() async {
+    try {
+      isLoading.value = true;
+      hasError.value = false;
+      
+      // Your fetch logic here
+      
+    } catch (e) {
+      hasError.value = true;
+      print('Error fetching cart: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

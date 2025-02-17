@@ -1,71 +1,43 @@
+import 'package:e_commerce/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
-
-import 'category_detail.dart';
+import '../../controllers/category_controller.dart';
+import '../../widgets/category/category_app_bar.dart';
+import '../../widgets/category/empty_categories.dart';
+import '../../widgets/category/category_list.dart';
+import '../../widgets/shimmer_effect.dart';
 
 class CategoryScreen extends StatelessWidget {
-  // Sample categories for the fashion store
-  final List<String> categories = [
-    "Men's Clothing",
-    "Women's Clothing",
-    "Accessories",
-    "Shoes",
-    "Bags",
-    "Jewelry",
-  ];
+  final CategoryController categoryController = Get.put(CategoryController());
+
+  CategoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            IconlyLight.arrow_left,
-            color: Colors.black,
-          ),
+      appBar: const CategoryAppBar(),
+      body: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(
+          physics: const ClampingScrollPhysics(),
         ),
-        centerTitle: false,
-        scrolledUnderElevation: 0.0,
-        title: Text(
-          'Categories',
-          style: GoogleFonts.poppins(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.5,
-          ),
-        ),
-        backgroundColor: Colors.white,
-      ),
-      body: ListView.separated(
-        padding: EdgeInsets.all(10.0),
-        itemCount: categories.length,
-        separatorBuilder: (context, index) => Divider(
-          color: Colors.grey.shade100,
-        ),
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              categories[index],
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            trailing: Icon(
-              IconlyLight.arrow_right,
-              color: Colors.black,
-            ),
-            onTap: () {
-              // Navigate to category detail page
-              Get.to(() => CategoryDetailScreen(categoryName: categories[index]));
+        child: RefreshIndicator(
+          color: AppColors.primaryColor,
+          onRefresh: () => categoryController.fetchCategories(),
+          child: Obx(() {
+            if (categoryController.isLoading.value) {
+              return buildCategoryShimmerEffect(context);
+            }
 
-            },
-          );
-        },
+            if (categoryController.categories.isEmpty) {
+              return const EmptyCategories();
+            }
+
+            return CategoryList(
+              categories: categoryController.categories,
+            );
+          }),
+        ),
       ),
     );
   }
 }
-
