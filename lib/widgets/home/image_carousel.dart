@@ -1,18 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 
 class ImageCarousel extends StatelessWidget {
   final List<String> imageList;
 
-  const ImageCarousel({Key? key, required this.imageList}) : super(key: key);
+  const ImageCarousel({super.key, required this.imageList});
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
         height: 160.0,
-        aspectRatio: 16/9,
+        aspectRatio: 16 / 9,
         viewportFraction: 0.9,
         initialPage: 0,
         enableInfiniteScroll: true,
@@ -50,4 +50,4 @@ class ImageCarousel extends StatelessWidget {
       }).toList(),
     );
   }
-} 
+}

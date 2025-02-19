@@ -1,4 +1,3 @@
-// item.dart
 class Item {
   final String name;
   final int quantity;

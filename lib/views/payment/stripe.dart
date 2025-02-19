@@ -6,10 +6,10 @@ import 'package:iconly/iconly.dart';
 import '../../controllers/cart_controller.dart';
 import '../../controllers/payment_controller.dart';
 import '../../utils/colors.dart';
-import '../../widgets/delivery_card.dart';
+import '../../widgets/delivery/delivery_card.dart';
 
 class StripePaymentPage extends StatelessWidget {
-  const StripePaymentPage({Key? key}) : super(key: key);
+  const StripePaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {

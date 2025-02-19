@@ -1,16 +1,17 @@
 import 'package:e_commerce/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../controllers/category_controller.dart';
 import '../../widgets/category/category_app_bar.dart';
-import '../../widgets/category/empty_categories.dart';
 import '../../widgets/category/category_list.dart';
-import '../../widgets/shimmer_effect.dart';
+import '../../widgets/category/empty_categories.dart';
+import '../../widgets/shimmer/shimmer_effect.dart';
 
 class CategoryScreen extends StatelessWidget {
   final CategoryController categoryController = Get.put(CategoryController());
 
-  CategoryScreen({Key? key}) : super(key: key);
+  CategoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

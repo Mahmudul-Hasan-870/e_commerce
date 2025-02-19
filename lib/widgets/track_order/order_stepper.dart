@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
 import '../../utils/colors.dart';
 
 class OrderStepper extends StatelessWidget {
@@ -8,10 +9,10 @@ class OrderStepper extends StatelessWidget {
   final dynamic order;
 
   const OrderStepper({
-    Key? key,
+    super.key,
     required this.statusLevel,
     required this.order,
-  }) : super(key: key);
+  });
 
   Widget _buildStepperDot(bool isActive, bool isCompleted) {
     return Container(
@@ -118,4 +119,4 @@ class OrderStepper extends StatelessWidget {
       ),
     );
   }
-} 
+}

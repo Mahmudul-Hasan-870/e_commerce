@@ -1,12 +1,13 @@
+import 'package:e_commerce/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../utils/colors.dart';
-import '../../widgets/primary_screen.dart';
 
 class EmptyOrders extends StatelessWidget {
-  const EmptyOrders({Key? key}) : super(key: key);
+  const EmptyOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class EmptyOrders extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             IconlyLight.buy,
             size: 150,
             color: Colors.grey,
@@ -38,7 +39,7 @@ class EmptyOrders extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           ElevatedButton(
-            onPressed: () => Get.offAll(() => const PrimaryScreen()),
+            onPressed: () => Get.offAll(() => MainScreen()),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primaryColor,
               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 15),
@@ -59,4 +60,4 @@ class EmptyOrders extends StatelessWidget {
       ),
     );
   }
-} 
+}

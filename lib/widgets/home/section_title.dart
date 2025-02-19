@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -7,10 +6,10 @@ class SectionTitle extends StatelessWidget {
   final VoidCallback onSeeAll;
 
   const SectionTitle({
-    Key? key,
+    super.key,
     required this.title,
     required this.onSeeAll,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,4 +40,4 @@ class SectionTitle extends StatelessWidget {
       ),
     );
   }
-} 
+}

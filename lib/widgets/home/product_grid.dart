@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import '../../models/product_model.dart';
 import 'product_card.dart';
 
@@ -8,10 +8,10 @@ class ProductGrid extends StatelessWidget {
   final bool showSaleItems;
 
   const ProductGrid({
-    Key? key,
+    super.key,
     required this.products,
     this.showSaleItems = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,4 +34,4 @@ class ProductGrid extends StatelessWidget {
       },
     );
   }
-} 
+}

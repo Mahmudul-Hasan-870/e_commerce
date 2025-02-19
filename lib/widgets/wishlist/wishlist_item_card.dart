@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../models/wishlist_model.dart';
@@ -13,32 +14,32 @@ class WishlistItemCard extends StatelessWidget {
   final WishlistController controller;
 
   const WishlistItemCard({
-    Key? key,
+    super.key,
     required this.item,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final productController = Get.find<ProductController>();
-    final product = productController.productList.firstWhereOrNull(
-      (p) => p.name == item.productName
-    );
-    final bool hasSalePrice = product?.salePrice != null && product!.salePrice! > 0;
+    final product = productController.productList
+        .firstWhereOrNull((p) => p.name == item.productName);
+    final bool hasSalePrice =
+        product?.salePrice != null && product!.salePrice! > 0;
 
     return GestureDetector(
       onTap: () {
         if (product != null) {
           Get.to(() => ProductDetailsScreen(
-            productName: product.name,
-            productImage: product.image,
-            productPrice: product.price.toString(),
-            salePrice: product.salePrice?.toString() ?? '',
-            productDescription: product.description,
-            stockQuantity: product.stock.toString(),
-            colors: product.colors,
-            sizes: product.sizes,
-          ));
+                productName: product.name,
+                productImage: product.image,
+                productPrice: product.price.toString(),
+                salePrice: product.salePrice?.toString() ?? '',
+                productDescription: product.description,
+                stockQuantity: product.stock.toString(),
+                colors: product.colors,
+                sizes: product.sizes,
+              ));
         }
       },
       child: Container(
@@ -63,8 +64,8 @@ class WishlistItemCard extends StatelessWidget {
                 // Image Section
                 Container(
                   height: 170,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
                       top: Radius.circular(15),
                     ),
                   ),
@@ -198,4 +199,4 @@ class WishlistItemCard extends StatelessWidget {
       ),
     );
   }
-} 
+}

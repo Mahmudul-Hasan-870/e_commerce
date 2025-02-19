@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../controllers/wishlist_controller.dart';
 import '../../models/wishlist_model.dart';
 import 'wishlist_item_card.dart';
@@ -8,10 +9,10 @@ class WishlistGrid extends StatelessWidget {
   final WishlistController controller;
 
   const WishlistGrid({
-    Key? key,
+    super.key,
     required this.items,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,4 +31,4 @@ class WishlistGrid extends StatelessWidget {
       },
     );
   }
-} 
+}

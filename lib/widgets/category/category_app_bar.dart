@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 class CategoryAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CategoryAppBar({Key? key}) : super(key: key);
+  const CategoryAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,4 +34,4 @@ class CategoryAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-} 
+}

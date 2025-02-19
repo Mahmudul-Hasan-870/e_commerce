@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../../controllers/reset_password_controller.dart';
 
 class ResetPasswordForm extends StatelessWidget {
   final ResetPasswordController controller;
 
-  const ResetPasswordForm({Key? key, required this.controller}) : super(key: key);
+  const ResetPasswordForm({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -39,38 +40,38 @@ class ResetPasswordForm extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Obx(() => TextField(
-            controller: controller.newPasswordController,
-            obscureText: controller.isObscure.value,
-            decoration: InputDecoration(
-              hintText: 'New Password',
-              hintStyle: GoogleFonts.poppins(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-              prefixIcon: const Icon(
-                IconlyLight.lock,
-                color: Colors.grey,
-              ),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  controller.isObscure.value
-                      ? IconlyLight.hide
-                      : IconlyLight.show,
-                  color: Colors.grey,
+                controller: controller.newPasswordController,
+                obscureText: controller.isObscure.value,
+                decoration: InputDecoration(
+                  hintText: 'New Password',
+                  hintStyle: GoogleFonts.poppins(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                  prefixIcon: const Icon(
+                    IconlyLight.lock,
+                    color: Colors.grey,
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      controller.isObscure.value
+                          ? IconlyLight.hide
+                          : IconlyLight.show,
+                      color: Colors.grey,
+                    ),
+                    onPressed: controller.togglePasswordVisibility,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[100],
+                  contentPadding: const EdgeInsets.symmetric(vertical: 15),
                 ),
-                onPressed: controller.togglePasswordVisibility,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.grey[100],
-              contentPadding: const EdgeInsets.symmetric(vertical: 15),
-            ),
-          )),
+              )),
         ],
       ),
     );
   }
-} 
+}

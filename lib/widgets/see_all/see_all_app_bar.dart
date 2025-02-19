@@ -6,7 +6,7 @@ import 'package:iconly/iconly.dart';
 class SeeAllAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showSaleProducts;
 
-  const SeeAllAppBar({Key? key, required this.showSaleProducts}) : super(key: key);
+  const SeeAllAppBar({super.key, required this.showSaleProducts});
 
   @override
   Widget build(BuildContext context) {
@@ -36,4 +36,4 @@ class SeeAllAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-} 
+}

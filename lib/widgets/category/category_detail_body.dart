@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../controllers/product_controller.dart';
 import '../home/product_grid.dart';
-import '../shimmer_effect.dart';
+import '../shimmer/shimmer_effect.dart';
 
 class CategoryDetailBody extends StatelessWidget {
   final String categoryName;
@@ -10,11 +11,11 @@ class CategoryDetailBody extends StatelessWidget {
   final ScrollController scrollController;
 
   const CategoryDetailBody({
-    Key? key,
+    super.key,
     required this.categoryName,
     required this.productController,
     required this.scrollController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,4 +55,4 @@ class CategoryDetailBody extends StatelessWidget {
       ),
     );
   }
-} 
+}

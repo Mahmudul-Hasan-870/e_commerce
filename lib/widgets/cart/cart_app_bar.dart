@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../controllers/cart_controller.dart';
 
 class CartAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CartAppBar({Key? key}) : super(key: key);
+  const CartAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,8 @@ class CartAppBar extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
           onPressed: () async {
             await cartController.clearCart();
-            Get.snackbar('Cart Cleared', 'All items have been removed from your cart');
+            Get.snackbar(
+                'Cart Cleared', 'All items have been removed from your cart');
           },
           icon: const Icon(
             IconlyLight.delete,
@@ -49,4 +51,4 @@ class CartAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-} 
+}

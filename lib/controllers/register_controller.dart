@@ -2,12 +2,9 @@ import 'dart:convert';
 
 import 'package:e_commerce/controllers/prefs_controller.dart';
 import 'package:e_commerce/views/auth/login/login.dart';
-import 'package:e_commerce/widgets/primary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:motion_toast/motion_toast.dart';
 
 import '../utils/config.dart';
 
@@ -46,8 +43,8 @@ class RegisterController extends GetxController {
       isLoading.value = true;
 
       // Validate input fields
-      if (nameController.text.isEmpty || 
-          emailController.text.isEmpty || 
+      if (nameController.text.isEmpty ||
+          emailController.text.isEmpty ||
           passwordController.text.isEmpty) {
         Get.snackbar(
           'Error',
@@ -75,7 +72,7 @@ class RegisterController extends GetxController {
           clearControllers(); // Clear the text fields
           // Remove token saving
           // await _prefsController.saveToken(data['token']);
-          
+
           Get.snackbar(
             'Success',
             'Registration successful',

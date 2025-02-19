@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../views/category/category_detail.dart';
 
 class CategoryList extends StatelessWidget {
   final List<String> categories;
 
   const CategoryList({
-    Key? key,
+    super.key,
     required this.categories,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +35,10 @@ class CategoryList extends StatelessWidget {
             color: Colors.black,
           ),
           onTap: () {
-            Get.to(() => CategoryDetailScreen(
-              categoryName: categories[index]
-            ));
+            Get.to(() => CategoryDetailScreen(categoryName: categories[index]));
           },
         );
       },
     );
   }
-} 
+}

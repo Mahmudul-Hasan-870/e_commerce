@@ -6,7 +6,7 @@ import 'package:iconly/iconly.dart';
 class ShippingAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isEditing;
 
-  const ShippingAppBar({Key? key, required this.isEditing}) : super(key: key);
+  const ShippingAppBar({super.key, required this.isEditing});
 
   @override
   Widget build(BuildContext context) {
@@ -36,4 +36,4 @@ class ShippingAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-} 
+}

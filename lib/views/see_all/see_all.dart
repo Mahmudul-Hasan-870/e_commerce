@@ -1,10 +1,11 @@
 import 'package:e_commerce/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../controllers/product_controller.dart';
 import '../../widgets/see_all/see_all_app_bar.dart';
 import '../../widgets/see_all/see_all_grid.dart';
-import '../../widgets/shimmer_effect.dart';
+import '../../widgets/shimmer/shimmer_effect.dart';
 
 class SeeAllScreen extends StatelessWidget {
   final ProductController productController = Get.put(ProductController());

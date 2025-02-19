@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+
 import '../models/wishlist_model.dart';
 
 class WishlistController extends GetxController {
@@ -16,7 +17,8 @@ class WishlistController extends GetxController {
   Future<void> loadWishlist() async {
     try {
       isLoading.value = true;
-      await Future.delayed(const Duration(milliseconds: 500)); // Optional: simulate loading
+      await Future.delayed(
+          const Duration(milliseconds: 500)); // Optional: simulate loading
       wishlistItems.value = wishlistBox.values.toList();
     } finally {
       isLoading.value = false;

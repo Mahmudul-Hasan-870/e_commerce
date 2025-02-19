@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
 import '../../utils/colors.dart';
-import 'order_stepper.dart';
 import 'order_details_section.dart';
+import 'order_stepper.dart';
 
 class OrderCard extends StatelessWidget {
   final dynamic order;
   final bool isProcessed;
 
   const OrderCard({
-    Key? key,
+    super.key,
     required this.order,
     required this.isProcessed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,10 @@ class OrderCard extends StatelessWidget {
         children: [
           // Order Header
           _buildOrderHeader(),
-          
+
           // Order Stepper
           OrderStepper(statusLevel: statusLevel, order: order),
-          
+
           // Order Details
           OrderDetailsSection(order: order),
         ],
@@ -113,4 +114,4 @@ class OrderCard extends StatelessWidget {
       ),
     );
   }
-} 
+}

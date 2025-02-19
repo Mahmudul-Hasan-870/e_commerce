@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../controllers/shipping_controller.dart';
 import '../../models/shipping_address_model.dart';
 import '../../widgets/shipping/shipping_app_bar.dart';
@@ -10,7 +11,7 @@ class ShippingAddressScreen extends StatelessWidget {
   final ShippingController controller = Get.put(ShippingController());
   final ShippingAddressModel? shippingAddress;
 
-  ShippingAddressScreen({Key? key, this.shippingAddress}) : super(key: key) {
+  ShippingAddressScreen({super.key, this.shippingAddress}) {
     _initializeFields();
   }
 

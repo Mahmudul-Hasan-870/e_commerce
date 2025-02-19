@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../../controllers/cart_controller.dart';
 import '../../utils/colors.dart';
 
@@ -15,13 +16,13 @@ class CartItemWidget extends StatelessWidget {
   final int index;
 
   const CartItemWidget({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.title,
     required this.price,
     required this.size,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -151,4 +152,4 @@ class CartItemWidget extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -3,11 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResetPasswordHeader extends StatelessWidget {
-  const ResetPasswordHeader({Key? key}) : super(key: key);
+  const ResetPasswordHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.45,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -43,4 +43,4 @@ class ResetPasswordHeader extends StatelessWidget {
       ),
     );
   }
-} 
+}

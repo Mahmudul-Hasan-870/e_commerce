@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../controllers/wishlist_controller.dart';
+import '../../widgets/shimmer/shimmer_effect.dart';
 import '../../widgets/wishlist/wishlist_app_bar.dart';
 import '../../widgets/wishlist/wishlist_grid.dart';
-import '../../widgets/shimmer_effect.dart';
 
 class WishlistScreen extends StatelessWidget {
   final WishlistController wishlistController = Get.put(WishlistController());
+
+  WishlistScreen({super.key});
 
   Future<void> _refreshWishlist() async {
     await wishlistController.loadWishlist();

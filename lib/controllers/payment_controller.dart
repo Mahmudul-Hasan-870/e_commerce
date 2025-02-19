@@ -1,18 +1,20 @@
 import 'dart:convert';
+
 import 'package:e_commerce/controllers/prefs_controller.dart';
 import 'package:e_commerce/controllers/shipping_controller.dart';
 import 'package:e_commerce/utils/config.dart';
 import 'package:e_commerce/views/success/success.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../models/onder_model.dart';
+
 import '../views/service/stripe _service.dart';
 import 'cart_controller.dart';
 
 class PaymentController extends GetxController {
   final CartController cartController = Get.find<CartController>();
   final ShippingController shippingController = Get.find<ShippingController>();
-  final SharedPreferencesController prefsController = SharedPreferencesController();
+  final SharedPreferencesController prefsController =
+      SharedPreferencesController();
 
   RxInt selectedPaymentOptionIndex = RxInt(-1);
 
@@ -26,11 +28,13 @@ class PaymentController extends GetxController {
     }
 
     try {
-      if (selectedOptionIndex == 0) { // Stripe payment option
+      if (selectedOptionIndex == 0) {
+        // Stripe payment option
         await StripeService.instance.makePayment(amount);
         // Only process order after successful payment
         await processOrder("success");
-      } else if (selectedOptionIndex == 2) { // Cash on Delivery option
+      } else if (selectedOptionIndex == 2) {
+        // Cash on Delivery option
         await processOrder("cash_on_delivery");
       } else {
         Get.snackbar("Error", "Selected payment option is not available.");
@@ -65,15 +69,19 @@ class PaymentController extends GetxController {
 
       // Create order data in the format expected by the API
       final orderData = {
-        'items': cartController.getCartItems().map((item) => {
-          'product_name': item.title,
-          'quantity': item.quantity,
-          'price': item.price,
-          'total': (double.parse(item.price) * item.quantity).toString(),
-          'image_url': item.imageUrl,
-          'color': item.color,
-          'size': item.size,
-        }).toList(),
+        'items': cartController
+            .getCartItems()
+            .map((item) => {
+                  'product_name': item.title,
+                  'quantity': item.quantity,
+                  'price': item.price,
+                  'total':
+                      (double.parse(item.price) * item.quantity).toString(),
+                  'image_url': item.imageUrl,
+                  'color': item.color,
+                  'size': item.size,
+                })
+            .toList(),
         'delivery_address': {
           'firstName': selectedAddress.firstName,
           'lastName': selectedAddress.lastName,
@@ -86,9 +94,9 @@ class PaymentController extends GetxController {
         },
         'delivery_option': selectedDeliveryOption,
         'payment_status': paymentStatus,
-        'order_status': paymentStatus == "cash_on_delivery" 
-            ? "pending" 
-            : "processed",  // For successful payment, status will be 'processed'
+        'order_status': paymentStatus == "cash_on_delivery"
+            ? "pending"
+            : "processed", // For successful payment, status will be 'processed'
         'total_amount': totalAmount,
       };
 
@@ -101,43 +109,41 @@ class PaymentController extends GetxController {
         body: jsonEncode(orderData),
       );
 
-      print("Response status: ${response.statusCode}");
-      print("Response body: ${response.body}"); // For debugging
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         await cartController.clearCart();
         // Show success message based on payment type
         if (paymentStatus == "success") {
           Get.snackbar(
-            "Success", 
+            "Success",
             "Payment and order processed successfully!",
             snackPosition: SnackPosition.TOP,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           );
         } else {
           Get.snackbar(
-            "Success", 
+            "Success",
             "Order placed successfully!",
             snackPosition: SnackPosition.TOP,
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           );
         }
-        Get.to(() => OrderConfirmationScreen(deliveryOption: selectedDeliveryOption));
+        Get.to(() =>
+            OrderConfirmationScreen(deliveryOption: selectedDeliveryOption));
       } else {
         Get.snackbar(
-          'Error', 
+          'Error',
           'Failed to place the order. Please try again.',
           snackPosition: SnackPosition.TOP,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
       }
     } catch (error) {
       print("Error details: $error"); // For debugging
       Get.snackbar(
-        'Error', 
+        'Error',
         'An error occurred while processing your order. Please try again.',
         snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
       );
     }
   }

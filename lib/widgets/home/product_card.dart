@@ -1,30 +1,31 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import '../../models/product_model.dart';
 import '../../views/details/product_details.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
 
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Get.to(() => ProductDetailsScreen(
-          productName: product.name,
-          productImage: product.image,
-          productPrice: product.price.toString(),
-          salePrice: product.salePrice?.toString() ?? '',
-          productDescription: product.description,
-          stockQuantity: product.stock.toString(),
-          colors: product.colors,
-          sizes: product.sizes,
-        ));
+              productName: product.name,
+              productImage: product.image,
+              productPrice: product.price.toString(),
+              salePrice: product.salePrice?.toString() ?? '',
+              productDescription: product.description,
+              stockQuantity: product.stock.toString(),
+              colors: product.colors,
+              sizes: product.sizes,
+            ));
       },
       child: Container(
         margin: const EdgeInsets.all(8.0),
@@ -47,8 +48,8 @@ class ProductCard extends StatelessWidget {
               children: [
                 Container(
                   height: 170,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
                       top: Radius.circular(15),
                     ),
                   ),
@@ -153,4 +154,4 @@ class ProductCard extends StatelessWidget {
       ),
     );
   }
-} 
+}

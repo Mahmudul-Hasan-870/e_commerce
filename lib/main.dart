@@ -1,12 +1,10 @@
 import 'package:e_commerce/controllers/payment_controller.dart';
 import 'package:e_commerce/models/shipping_address_model.dart';
 import 'package:e_commerce/utils/config.dart';
-import 'package:e_commerce/views/home/home.dart';
 import 'package:e_commerce/views/splash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'controllers/cart_controller.dart';
@@ -23,7 +21,7 @@ void main() async {
   await Hive.openBox<WishlistModel>('wishlistBox');
   await Hive.openBox<CartModel>('cartBox');
   await Hive.openBox('shippingAddresses');
-  Get.put(CartController());  // Register CartController
+  Get.put(CartController()); // Register CartController
   Get.put(ShippingController()); // Initialize ShippingController
   Get.put(PaymentController()); // Initialize ShippingController
   runApp(const MyApp());
@@ -42,10 +40,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white
-      ),
+      theme:
+          ThemeData(useMaterial3: true, scaffoldBackgroundColor: Colors.white),
       home: const SplashScreen(),
     );
   }

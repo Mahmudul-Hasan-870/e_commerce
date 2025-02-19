@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
-class PrimaryScreen extends StatelessWidget {
-  const PrimaryScreen({super.key});
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +92,6 @@ class NavigationController extends GetxController {
     HomeScreen(),
     CategoryScreen(),
     WishlistScreen(),
-   ProfileScreen(),
+    ProfileScreen(),
   ];
 }

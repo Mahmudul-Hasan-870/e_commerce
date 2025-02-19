@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../views/cart/cart.dart';
 
-class CategoryDetailAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CategoryDetailAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String categoryName;
 
   const CategoryDetailAppBar({
-    Key? key,
+    super.key,
     required this.categoryName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,4 +51,4 @@ class CategoryDetailAppBar extends StatelessWidget implements PreferredSizeWidge
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-} 
+}

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+
 import '../models/cart_model.dart';
 
 class CartController extends GetxController {
@@ -23,7 +24,6 @@ class CartController extends GetxController {
       cartItems.addAll(cartBox.values.toList());
     } catch (e) {
       hasError.value = true;
-      print('Error loading cart: $e');
     } finally {
       isLoading.value = false;
     }
@@ -49,7 +49,6 @@ class CartController extends GetxController {
       }
     } catch (e) {
       hasError.value = true;
-      print('Error adding to cart: $e');
     }
   }
 
@@ -62,7 +61,6 @@ class CartController extends GetxController {
       }
     } catch (e) {
       hasError.value = true;
-      print('Error removing from cart: $e');
     }
   }
 
@@ -76,7 +74,6 @@ class CartController extends GetxController {
       }
     } catch (e) {
       hasError.value = true;
-      print('Error increasing quantity: $e');
     }
   }
 
@@ -92,7 +89,6 @@ class CartController extends GetxController {
       }
     } catch (e) {
       hasError.value = true;
-      print('Error decreasing quantity: $e');
     }
   }
 
@@ -122,12 +118,10 @@ class CartController extends GetxController {
     try {
       isLoading.value = true;
       hasError.value = false;
-      
+
       // Your fetch logic here
-      
     } catch (e) {
       hasError.value = true;
-      print('Error fetching cart: $e');
     } finally {
       isLoading.value = false;
     }

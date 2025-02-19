@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../utils/colors.dart';
 
 class OrderDetailsSection extends StatelessWidget {
   final dynamic order;
 
   const OrderDetailsSection({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -213,4 +214,4 @@ class OrderDetailsSection extends StatelessWidget {
       ),
     );
   }
-} 
+}

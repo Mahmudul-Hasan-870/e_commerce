@@ -1,10 +1,9 @@
 import 'dart:convert';
+
 import 'package:e_commerce/views/auth/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:motion_toast/motion_toast.dart';
 
 import '../utils/config.dart';
 
@@ -45,25 +44,15 @@ class ResetPasswordController extends GetxController {
 
       isLoading.value = true;
 
-      // Print request details for debugging
-      print('Request URL: ${AppConfig.resetPasswordUrl}');
-      print('Request Body: ${json.encode({
-        'otp': otpController.text.trim(),
-        'password': newPasswordController.text, // Changed from new_password to password
-      })}');
-
       final response = await http.post(
         Uri.parse(AppConfig.resetPasswordUrl),
         headers: {'Content-Type': 'application/json'},
         body: json.encode({
           'otp': otpController.text.trim(),
-          'password': newPasswordController.text, // Changed from new_password to password
+          'password': newPasswordController.text,
+          // Changed from new_password to password
         }),
       );
-
-      // Print response for debugging
-      print('Response Status: ${response.statusCode}');
-      print('Response Body: ${response.body}');
 
       final data = json.decode(response.body);
 

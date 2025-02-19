@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginHeader extends StatelessWidget {
   const LoginHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.4,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -41,4 +41,4 @@ class LoginHeader extends StatelessWidget {
       ),
     );
   }
-} 
+}

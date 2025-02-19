@@ -9,7 +9,7 @@ import '../../controllers/shipping_controller.dart';
 import '../payment/stripe.dart';
 
 class AddressScreen extends StatelessWidget {
-  AddressScreen({Key? key}) : super(key: key);
+  const AddressScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -197,9 +197,13 @@ class AddressScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (shippingController.selectedAddressIndex.value == -1) {
-                      Get.snackbar('No Address Selected', 'Please select a delivery address.');
-                    } else if (shippingController.selectedDeliveryOptionIndex.value == -1) {
-                      Get.snackbar('No Delivery Option Selected', 'Please select a delivery option.');
+                      Get.snackbar('No Address Selected',
+                          'Please select a delivery address.');
+                    } else if (shippingController
+                            .selectedDeliveryOptionIndex.value ==
+                        -1) {
+                      Get.snackbar('No Delivery Option Selected',
+                          'Please select a delivery option.');
                     } else {
                       // If both address and delivery option are selected, navigate to Stripe Payment Page
                       Get.to(() => const StripePaymentPage());
@@ -219,7 +223,6 @@ class AddressScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
             ],
           ),
         ),

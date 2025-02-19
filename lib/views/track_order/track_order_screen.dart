@@ -1,22 +1,17 @@
-import 'package:e_commerce/views/home/home.dart';
-import 'package:e_commerce/widgets/primary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
-import 'package:intl/intl.dart';
 
 import '../../controllers/track_order_controller.dart';
 import '../../utils/colors.dart';
-import '../../widgets/track_order/track_order_app_bar.dart';
-import '../../widgets/track_order/order_card.dart';
+import '../../widgets/shimmer/shimmer_effect.dart';
 import '../../widgets/track_order/empty_orders.dart';
-import '../../widgets/shimmer_effect.dart';
+import '../../widgets/track_order/order_card.dart';
+import '../../widgets/track_order/track_order_app_bar.dart';
 
 class TrackOrderScreen extends StatelessWidget {
   final TrackOrderController controller = Get.put(TrackOrderController());
 
-  TrackOrderScreen({Key? key}) : super(key: key);
+  TrackOrderScreen({super.key});
 
   Future<void> _refreshOrders() async {
     await controller.fetchOrders();

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../../controllers/forgot_password_controller.dart';
-import '../../../utils/colors.dart';
 
 class ForgotPasswordForm extends StatelessWidget {
   final ForgotPasswordController controller;
 
-  const ForgotPasswordForm({Key? key, required this.controller}) : super(key: key);
+  const ForgotPasswordForm({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -40,4 +39,4 @@ class ForgotPasswordForm extends StatelessWidget {
       ),
     );
   }
-} 
+}

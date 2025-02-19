@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 class EmptyCategories extends StatelessWidget {
-  const EmptyCategories({Key? key}) : super(key: key);
+  const EmptyCategories({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,4 +37,4 @@ class EmptyCategories extends StatelessWidget {
       ),
     );
   }
-} 
+}

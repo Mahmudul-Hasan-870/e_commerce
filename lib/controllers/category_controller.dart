@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../utils/config.dart';
+
 import '../controllers/prefs_controller.dart';
+import '../utils/config.dart';
 
 class CategoryController extends GetxController {
   var categories = <String>[].obs;
   var isLoading = true.obs;
-  final SharedPreferencesController _prefsController = SharedPreferencesController();
+  final SharedPreferencesController _prefsController =
+      SharedPreferencesController();
 
   @override
   void onInit() {
@@ -18,10 +21,10 @@ class CategoryController extends GetxController {
   Future<void> fetchCategories() async {
     try {
       isLoading.value = true;
-      
+
       // Get token from SharedPreferencesController
       final token = await _prefsController.getToken();
-      
+
       if (token == null) {
         Get.snackbar('Error', 'Please login to view categories');
         return;
@@ -51,4 +54,4 @@ class CategoryController extends GetxController {
       isLoading.value = false;
     }
   }
-} 
+}

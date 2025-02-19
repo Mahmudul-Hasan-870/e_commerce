@@ -129,7 +129,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             const CircularProgressIndicator(
                                 color: AppColors.primaryColor),
                         errorWidget: (context, url, error) =>
-                            Icon(Icons.error, color: Colors.red),
+                            const Icon(Icons.error, color: Colors.red),
                         fit: BoxFit.cover,
                       ),
                     ),

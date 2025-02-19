@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../../controllers/login_controller.dart';
 
 class LoginForm extends StatelessWidget {
   final LoginController controller;
 
   const LoginForm({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,4 +82,4 @@ class LoginForm extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../utils/colors.dart';
+
 import '../../controllers/shipping_controller.dart';
+import '../../utils/colors.dart';
 
 class ShippingSaveButton extends StatelessWidget {
   final ShippingController controller;
   final bool isEditing;
 
   const ShippingSaveButton({
-    Key? key,
+    super.key,
     required this.controller,
     required this.isEditing,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,4 +60,4 @@ class ShippingSaveButton extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../utils/colors.dart';
 
 class ProfileBottomSection extends StatelessWidget {
-  const ProfileBottomSection({Key? key}) : super(key: key);
+  const ProfileBottomSection({super.key});
 
   void showPrivacyPolicy() {
     Get.bottomSheet(
@@ -165,4 +164,4 @@ class ProfileBottomSection extends StatelessWidget {
       ],
     );
   }
-} 
+}

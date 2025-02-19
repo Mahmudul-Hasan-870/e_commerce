@@ -1,4 +1,3 @@
-// Shimmer effect widget with rounded borders
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -15,13 +14,15 @@ Widget buildShimmerEffect(BuildContext context) {
           crossAxisCount: 2,
           childAspectRatio: 0.79,
         ),
-        itemCount: 6, // Show 6 placeholder items while loading
+        itemCount: 6,
+        // Show 6 placeholder items while loading
         itemBuilder: (context, index) {
           return Card(
             margin: const EdgeInsets.all(8.0),
             color: Colors.white,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12.0), // Rounded corners for all sides
+              borderRadius: BorderRadius.circular(12.0),
+              // Rounded corners for all sides
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -123,9 +124,9 @@ Widget buildWishlistShimmerEffect(BuildContext context) {
             children: [
               Container(
                 height: 170,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.vertical(
+                  borderRadius: BorderRadius.vertical(
                     top: Radius.circular(15),
                   ),
                 ),
@@ -243,9 +244,9 @@ Widget buildHomeShimmerEffect(BuildContext context) {
                   children: [
                     Container(
                       height: 170,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: const BorderRadius.vertical(
+                        borderRadius: BorderRadius.vertical(
                           top: Radius.circular(15),
                         ),
                       ),
@@ -363,7 +364,7 @@ Widget buildTrackOrderShimmerEffect() {
                   ],
                 ),
               ),
-              
+
               // Stepper shimmer
               Container(
                 padding: const EdgeInsets.all(20),
@@ -442,7 +443,7 @@ Widget buildTrackOrderShimmerEffect() {
                   ],
                 ),
               ),
-              
+
               // Order details shimmer
               Container(
                 margin: const EdgeInsets.all(20),
@@ -500,7 +501,8 @@ Widget buildTrackOrderShimmerEffect() {
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(
                                       width: 80,

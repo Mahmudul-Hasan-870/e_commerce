@@ -6,7 +6,7 @@ import '../../utils/colors.dart';
 import '../../views/shipping/address_screen.dart';
 
 class CartBottomBar extends StatelessWidget {
-  const CartBottomBar({Key? key}) : super(key: key);
+  const CartBottomBar({super.key});
 
   @override
   Widget build(BuildContext context) {

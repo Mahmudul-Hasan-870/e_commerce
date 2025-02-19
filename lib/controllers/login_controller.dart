@@ -1,19 +1,17 @@
 import 'dart:convert';
 
 import 'package:e_commerce/controllers/prefs_controller.dart';
-import 'package:e_commerce/views/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:motion_toast/motion_toast.dart';
 
+import '../main_screen.dart';
 import '../utils/config.dart';
-import '../widgets/primary_screen.dart';
 
 class LoginController extends GetxService {
   // Dependencies
-  final SharedPreferencesController _prefsController = SharedPreferencesController();
+  final SharedPreferencesController _prefsController =
+      SharedPreferencesController();
 
   // Text Controllers
   late TextEditingController emailController;
@@ -77,7 +75,7 @@ class LoginController extends GetxService {
   Future<void> login(BuildContext context) async {
     try {
       if (!_validateInputs()) return;
-      
+
       isLoading.value = true;
 
       final response = await _performLoginRequest();
@@ -112,6 +110,6 @@ class LoginController extends GetxService {
     await _prefsController.saveToken(data['token']);
     clearControllers();
     _showSuccessSnackbar('Login successful');
-    Get.offAll(() => const PrimaryScreen());
+    Get.offAll(() => const MainScreen());
   }
 }

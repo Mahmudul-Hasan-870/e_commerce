@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../controllers/login_controller.dart';
-import '../../../widgets/auth/login/login_header.dart';
-import '../../../widgets/auth/login/login_form.dart';
 import '../../../widgets/auth/login/login_buttons.dart';
+import '../../../widgets/auth/login/login_form.dart';
+import '../../../widgets/auth/login/login_header.dart';
 
 class LoginScreen extends StatelessWidget {
   // Initialize controller as permanent to prevent disposal
   final loginController = Get.put(LoginController(), permanent: true);
 
-  LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

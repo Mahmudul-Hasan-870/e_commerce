@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 class TrackOrderAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const TrackOrderAppBar({Key? key}) : super(key: key);
+  const TrackOrderAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,4 +34,4 @@ class TrackOrderAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-} 
+}

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../controllers/shipping_controller.dart';
 import 'shipping_text_field.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ShippingFormFields extends StatelessWidget {
   final ShippingController controller;
 
   const ShippingFormFields({
-    Key? key,
+    super.key,
     required this.controller,
-  }) : super(key: key);
+  });
 
   Widget _buildSectionTitle(String title) {
     return Padding(
@@ -104,4 +105,4 @@ class ShippingFormFields extends StatelessWidget {
       ],
     );
   }
-} 
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../utils/colors.dart';
 
 class ShippingTextField extends StatelessWidget {
@@ -9,12 +10,12 @@ class ShippingTextField extends StatelessWidget {
   final TextInputType? keyboardType;
 
   const ShippingTextField({
-    Key? key,
+    super.key,
     required this.label,
     required this.controller,
     required this.icon,
     this.keyboardType,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -90,4 +91,4 @@ class ShippingTextField extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../models/product_model.dart';
 import '../home/product_card.dart';
 
@@ -7,10 +8,10 @@ class SeeAllGrid extends StatelessWidget {
   final bool showSaleProducts;
 
   const SeeAllGrid({
-    Key? key,
+    super.key,
     required this.products,
     required this.showSaleProducts,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,4 +32,4 @@ class SeeAllGrid extends StatelessWidget {
       },
     );
   }
-} 
+}

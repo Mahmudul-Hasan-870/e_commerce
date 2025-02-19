@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../controllers/product_controller.dart';
+import '../../utils/colors.dart';
 import '../../widgets/category/category_detail_app_bar.dart';
 import '../../widgets/category/category_detail_body.dart';
-import '../../utils/colors.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final String categoryName;
 
   const CategoryDetailScreen({
-    Key? key,
+    super.key,
     required this.categoryName,
-  }) : super(key: key);
+  });
 
   @override
   State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();

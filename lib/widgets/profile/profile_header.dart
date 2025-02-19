@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
+
 import '../../controllers/user_controller.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({Key? key}) : super(key: key);
+  const ProfileHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,4 +65,4 @@ class ProfileHeader extends StatelessWidget {
       ),
     );
   }
-} 
+}

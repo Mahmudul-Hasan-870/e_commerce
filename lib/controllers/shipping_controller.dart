@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+
 import '../models/shipping_address_model.dart';
 
 class ShippingController extends GetxController {
@@ -86,13 +87,13 @@ class ShippingController extends GetxController {
     required bool isError,
   }) {
     Get.closeAllSnackbars();
-    
+
     Get.snackbar(
       title,
       message,
       snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: isError 
-          ? Colors.red[50]!.withOpacity(0.95) 
+      backgroundColor: isError
+          ? Colors.red[50]!.withOpacity(0.95)
           : Colors.green[50]!.withOpacity(0.95),
       colorText: isError ? Colors.red[800] : Colors.green[800],
       duration: const Duration(seconds: 3),
@@ -155,7 +156,7 @@ class ShippingController extends GetxController {
         // Update existing address
         await shippingBox!.putAt(editingIndex.value!, shippingAddress);
         addresses[editingIndex.value!] = shippingAddress;
-        
+
         // Show success message
         await Future.delayed(const Duration(milliseconds: 100));
         _showSnackbar(
@@ -167,7 +168,7 @@ class ShippingController extends GetxController {
         // Add new address
         await shippingBox!.add(shippingAddress);
         addresses.add(shippingAddress);
-        
+
         // Show success message
         await Future.delayed(const Duration(milliseconds: 100));
         _showSnackbar(
@@ -180,11 +181,10 @@ class ShippingController extends GetxController {
       // Wait for snackbar to show before navigating back
       await Future.delayed(const Duration(seconds: 1));
       Get.back();
-
     } catch (e, stackTrace) {
       print('Error saving address: $e');
       print('Stack trace: $stackTrace');
-      
+
       // Show error message
       await Future.delayed(const Duration(milliseconds: 100));
       _showSnackbar(

@@ -1,12 +1,15 @@
 import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
 import '../models/track_order_model.dart';
 import '../utils/config.dart';
 import 'prefs_controller.dart';
 
 class TrackOrderController extends GetxController {
-  final SharedPreferencesController prefsController = SharedPreferencesController();
+  final SharedPreferencesController prefsController =
+      SharedPreferencesController();
   RxList<TrackOrderModel> orders = <TrackOrderModel>[].obs;
   RxBool isLoading = false.obs;
 
@@ -20,7 +23,7 @@ class TrackOrderController extends GetxController {
     try {
       isLoading.value = true;
       final token = await prefsController.getToken();
-      
+
       if (token == null) {
         Get.snackbar('Error', 'Please login to view orders');
         return;
@@ -38,15 +41,13 @@ class TrackOrderController extends GetxController {
         final Map<String, dynamic> responseData = json.decode(response.body);
         if (responseData['success'] == true && responseData['data'] != null) {
           final List<dynamic> ordersJson = responseData['data'];
-          
-          List<TrackOrderModel> ordersList = ordersJson
-              .map((json) => TrackOrderModel.fromJson(json))
-              .toList();
-          
-          ordersList.sort((a, b) => 
-            DateTime.parse(b.createdAt).compareTo(DateTime.parse(a.createdAt))
-          );
-          
+
+          List<TrackOrderModel> ordersList =
+              ordersJson.map((json) => TrackOrderModel.fromJson(json)).toList();
+
+          ordersList.sort((a, b) => DateTime.parse(b.createdAt)
+              .compareTo(DateTime.parse(a.createdAt)));
+
           orders.value = ordersList;
         }
       }
@@ -54,4 +55,4 @@ class TrackOrderController extends GetxController {
       isLoading.value = false;
     }
   }
-} 
+}

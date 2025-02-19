@@ -3,16 +3,15 @@ import 'dart:async';
 import 'package:e_commerce/utils/colors.dart';
 import 'package:e_commerce/utils/config.dart';
 import 'package:e_commerce/views/auth/login/login.dart';
-import 'package:e_commerce/views/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../controllers/prefs_controller.dart';
-import '../../widgets/primary_screen.dart';
+import '../../main_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -37,10 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Navigate based on token existence
     if (token != null && token.isNotEmpty) {
-      Get.offAll(() => const PrimaryScreen()); // Navigate to HomeScreen if token exists
-    } else {
       Get.offAll(
-          () =>  LoginScreen()); // Navigate to LoginScreen if no token
+          () => const MainScreen()); // Navigate to HomeScreen if token exists
+    } else {
+      Get.offAll(() => LoginScreen()); // Navigate to LoginScreen if no token
     }
   }
 

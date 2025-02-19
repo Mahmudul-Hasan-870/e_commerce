@@ -1,20 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:e_commerce/utils/colors.dart';
-import 'package:e_commerce/views/shipping/address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iconly/iconly.dart';
-import 'package:iconsax/iconsax.dart';
+
 import '../../controllers/cart_controller.dart';
 import '../../widgets/cart/cart_app_bar.dart';
 import '../../widgets/cart/cart_bottom_bar.dart';
 import '../../widgets/cart/cart_item_widget.dart';
 import '../../widgets/cart/empty_cart.dart';
-import '../../widgets/shimmer_effect.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
