@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../controllers/prefs_controller.dart';
+import '../controllers/local_controller.dart';
 import '../utils/config.dart';
 
 class CategoryController extends GetxController {

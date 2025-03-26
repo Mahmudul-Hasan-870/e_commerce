@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../controllers/login_controller.dart';
 import '../../../utils/colors.dart';
-import '../../../views/auth/password/forgot_password.dart';
-import '../../../views/auth/register/register.dart';
+import '../../../views/auth/password/forgot_password_screen.dart';
+import '../../../views/auth/register/register_screen.dart';
 
 class LoginButtons extends StatelessWidget {
   final LoginController controller;

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
-import '../../views/category/category_detail.dart';
+import '../../views/category/category_details_screen.dart';
 
 class CategoryList extends StatelessWidget {
   final List<String> categories;

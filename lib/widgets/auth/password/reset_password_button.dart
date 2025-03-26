@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../controllers/reset_password_controller.dart';
 import '../../../utils/colors.dart';
-import '../../../views/auth/login/login.dart';
+import '../../../views/auth/login/login_screen.dart';
 
 class ResetPasswordButton extends StatelessWidget {
   final ResetPasswordController controller;

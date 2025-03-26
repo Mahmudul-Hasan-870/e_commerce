@@ -1,7 +1,7 @@
 class AppConfig {
   static const String appName = 'E-Commerce';
 
-  static const String baseUrl = 'http://localhost:3000';
+  static const String baseUrl = 'http://192.168.1.103:3000';
   static const String registerUrl = '$baseUrl/api/auth/register';
   static const String loginUrl = '$baseUrl/api/auth/login';
   static const String usersUrl = '$baseUrl/api/users';
@@ -13,6 +13,8 @@ class AppConfig {
   static const String productsOrdersUrl = '$baseUrl/api/order';
   static const String categoriesUrl = '$baseUrl/api/admin/categories/names';
   static const String bannersUrl = '$baseUrl/api/admin/active_banners';
+
+  static const String razorpayTestKey = 'rzp_test_HJG5Rtuy8Xh2NB';
 
   static const String stripePublishableKey =
       "pk_test_51P9nVoRrokKxR1k7GYpiCd7B9ZVwmR7MBuYx28GmKrRsaOPUHmSMSIESH62ZVDwx6IFlN8xSz7br9cg0LzfLVbrK00uFBuBNzr";

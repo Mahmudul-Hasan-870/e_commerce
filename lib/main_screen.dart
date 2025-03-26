@@ -1,8 +1,8 @@
 import 'package:e_commerce/utils/colors.dart';
-import 'package:e_commerce/views/category/category.dart';
-import 'package:e_commerce/views/home/home.dart';
-import 'package:e_commerce/views/profile/profile.dart';
-import 'package:e_commerce/views/wishlist/wishlist.dart';
+import 'package:e_commerce/views/category/category_screen.dart';
+import 'package:e_commerce/views/home/home_screen.dart';
+import 'package:e_commerce/views/profile/profile_screen.dart';
+import 'package:e_commerce/views/wishlist/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

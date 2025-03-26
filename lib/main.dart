@@ -1,7 +1,7 @@
 import 'package:e_commerce/controllers/payment_controller.dart';
 import 'package:e_commerce/models/shipping_address_model.dart';
 import 'package:e_commerce/utils/config.dart';
-import 'package:e_commerce/views/splash/splash.dart';
+import 'package:e_commerce/views/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';

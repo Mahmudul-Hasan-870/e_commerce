@@ -1,12 +1,12 @@
 import 'package:e_commerce/utils/colors.dart';
-import 'package:e_commerce/views/shipping/shipping_address.dart';
+import 'package:e_commerce/views/shipping/shipping_address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
 import '../../controllers/shipping_controller.dart';
-import '../payment/stripe.dart';
+import '../payment/payment_screen.dart';
 
 class AddressScreen extends StatelessWidget {
   const AddressScreen({Key? key}) : super(key: key);
@@ -206,7 +206,7 @@ class AddressScreen extends StatelessWidget {
                           'Please select a delivery option.');
                     } else {
                       // If both address and delivery option are selected, navigate to Stripe Payment Page
-                      Get.to(() => const StripePaymentPage());
+                      Get.to(() => const PaymentScreen());
                     }
                   },
                   style: ElevatedButton.styleFrom(

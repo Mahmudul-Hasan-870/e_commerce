@@ -104,21 +104,21 @@ class ProfileBottomSection extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               Text(
-                'By using our app, you agree to these terms of service.',
+                'By using our app, you agree to these terms of services.',
                 style: GoogleFonts.poppins(fontSize: 14),
               ),
               const SizedBox(height: 15),
               _buildSection(
                 'User Agreement',
-                'You must be at least 13 years old to use this service. You are responsible for maintaining the security of your account.',
+                'You must be at least 13 years old to use this services. You are responsible for maintaining the security of your account.',
               ),
               _buildSection(
                 'Acceptable Use',
-                '• Do not violate any laws\n• Respect other users\n• Do not abuse the service',
+                '• Do not violate any laws\n• Respect other users\n• Do not abuse the services',
               ),
               _buildSection(
                 'Termination',
-                'We reserve the right to terminate or suspend access to our service immediately, without prior notice.',
+                'We reserve the right to terminate or suspend access to our services immediately, without prior notice.',
               ),
             ],
           ),

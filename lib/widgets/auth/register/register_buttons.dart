@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../controllers/register_controller.dart';
 import '../../../utils/colors.dart';
-import '../../../views/auth/login/login.dart';
+import '../../../views/auth/login/login_screen.dart';
 
 class RegisterButtons extends StatelessWidget {
   final RegisterController controller;

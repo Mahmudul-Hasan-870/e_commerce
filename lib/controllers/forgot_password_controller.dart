@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 import '../utils/config.dart';
-import '../views/auth/password/reset_password.dart';
+import '../views/auth/password/reset_password_screen.dart';
 
 class ForgotPasswordController extends GetxController {
   late TextEditingController emailController;

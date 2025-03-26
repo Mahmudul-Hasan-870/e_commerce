@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
-import '../../views/cart/cart.dart';
+import '../../views/cart/cart_screen.dart';
 
 class CategoryDetailAppBar extends StatelessWidget
     implements PreferredSizeWidget {

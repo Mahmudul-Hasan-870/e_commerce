@@ -1,13 +1,12 @@
 import 'dart:convert';
-
-import 'package:e_commerce/controllers/prefs_controller.dart';
+import 'package:e_commerce/controllers/local_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:e_commerce/controllers/shipping_controller.dart';
 import 'package:e_commerce/utils/config.dart';
-import 'package:e_commerce/views/success/success.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
-import '../views/service/stripe _service.dart';
+import '../views/services/stripe _service.dart';
+import '../views/success/success.dart';
 import 'cart_controller.dart';
 
 class PaymentController extends GetxController {
@@ -16,33 +15,26 @@ class PaymentController extends GetxController {
   final SharedPreferencesController prefsController =
       SharedPreferencesController();
 
-  RxInt selectedPaymentOptionIndex = RxInt(-1);
+  final selectedPaymentOptionIndex = (-1).obs;
 
   // Handle payment process
   Future<void> processPayment(double amount) async {
-    final selectedOptionIndex = selectedPaymentOptionIndex.value;
-
-    if (selectedOptionIndex == -1) {
-      Get.snackbar("Error", "Please select a payment option.");
-      return;
-    }
-
     try {
-      if (selectedOptionIndex == 0) {
-        // Stripe payment option
-        await StripeService.instance.makePayment(amount);
-        // Only process order after successful payment
-        await processOrder("success");
-      } else if (selectedOptionIndex == 2) {
-        // Cash on Delivery option
-        await processOrder("cash_on_delivery");
-      } else {
-        Get.snackbar("Error", "Selected payment option is not available.");
-        return;
+      // Stripe payment
+      bool paymentSuccess = await StripeService.instance.makePayment(amount);
+
+      // Only process order if payment was successful
+      if (paymentSuccess) {
+        await processOrder("order_confirmation");
       }
     } catch (e) {
-      Get.snackbar("Error", "Payment failed: $e");
-      return;
+      Get.snackbar(
+        'Error',
+        'Payment processing failed',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red[100],
+        colorText: Colors.red[900],
+      );
     }
   }
 
@@ -111,8 +103,16 @@ class PaymentController extends GetxController {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         await cartController.clearCart();
-        // Show success message based on payment type
-        if (paymentStatus == "success") {
+
+        // Navigate to order_confirmation screen with delivery option
+        Get.offAll(
+          () => OrderConfirmationScreen(
+            deliveryOption: selectedDeliveryOption,
+          ),
+        );
+
+        // Show order_confirmation message based on payment type
+        if (paymentStatus == "order_confirmation") {
           Get.snackbar(
             "Success",
             "Payment and order processed successfully!",
@@ -127,8 +127,6 @@ class PaymentController extends GetxController {
             duration: const Duration(seconds: 3),
           );
         }
-        Get.to(() =>
-            OrderConfirmationScreen(deliveryOption: selectedDeliveryOption));
       } else {
         Get.snackbar(
           'Error',
@@ -138,7 +136,6 @@ class PaymentController extends GetxController {
         );
       }
     } catch (error) {
-      print("Error details: $error"); // For debugging
       Get.snackbar(
         'Error',
         'An error occurred while processing your order. Please try again.',

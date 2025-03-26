@@ -1,3 +1,4 @@
+
 import '../utils/config.dart';
 
 class ProductModel {
@@ -34,7 +35,7 @@ class ProductModel {
       price: json['price'] is num ? json['price'].toDouble() : 0.0,
       salePrice: json['salePrice'] is num ? json['salePrice'].toDouble() : null,
       stock: json['stock'] is num ? json['stock'] : 0,
-      image: '${AppConfig.baseUrl}/uploads/${json['image']}',
+      image: '${AppConfig.baseUrl}/uploads/products/${json['image']}',
       colors: List<String>.from(json['colors'] ?? []),
       sizes: List<String>.from(json['sizes'] ?? []),
     );

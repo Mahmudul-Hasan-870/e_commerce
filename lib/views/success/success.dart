@@ -16,9 +16,9 @@ class OrderConfirmationScreen extends StatelessWidget {
     if (option == 'Standard') {
       // Set a time range for Standard delivery (e.g., 2 PM to 5 PM same day)
       DateTime standardStartTime =
-          DateTime(now.year, now.month, now.day, 14); // 2 PM
+      DateTime(now.year, now.month, now.day, 14); // 2 PM
       DateTime standardEndTime =
-          DateTime(now.year, now.month, now.day, 17); // 5 PM
+      DateTime(now.year, now.month, now.day, 17); // 5 PM
       return 'Today, ${DateFormat('hh:mm a').format(standardStartTime)} - ${DateFormat('hh:mm a').format(standardEndTime)}';
     } else if (option == 'Express') {
       // Set 30 to 40 minutes from the current time for Express delivery
@@ -69,13 +69,13 @@ class OrderConfirmationScreen extends StatelessWidget {
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  Get.off(() => TrackOrderScreen());
+                  Get.offAll(() => TrackOrderScreen());
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: AppColors.primaryColor,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

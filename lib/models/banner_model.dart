@@ -1,3 +1,5 @@
+import '../utils/config.dart';
+
 class BannerModel {
   final String id;
   final String title;
@@ -16,4 +18,7 @@ class BannerModel {
       image: json['image'] ?? '',
     );
   }
-} 
+
+  // Add a getter for the full image URL
+  String get fullImageUrl => '${AppConfig.baseUrl}/uploads/banners/$image';
+}

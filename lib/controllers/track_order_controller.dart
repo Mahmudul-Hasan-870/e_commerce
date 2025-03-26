@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/track_order_model.dart';
 import '../utils/config.dart';
-import 'prefs_controller.dart';
+import 'local_controller.dart';
 
 class TrackOrderController extends GetxController {
   final SharedPreferencesController prefsController =

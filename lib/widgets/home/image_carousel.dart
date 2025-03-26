@@ -1,11 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageCarousel extends StatelessWidget {
   final List<String> imageList;
+  final Widget Function(BuildContext, int) imageBuilder;
 
-  const ImageCarousel({super.key, required this.imageList});
+  const ImageCarousel({
+    super.key,
+    required this.imageList,
+    required this.imageBuilder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,9 @@ class ImageCarousel extends StatelessWidget {
                   imageUrl: imageUrl,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      color: AppColors.primaryColor,
+                    ),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),

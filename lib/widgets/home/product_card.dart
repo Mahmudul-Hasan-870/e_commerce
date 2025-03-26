@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/product_model.dart';
-import '../../views/details/product_details.dart';
+import '../../views/details/product_details_screen.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -47,7 +47,7 @@ class ProductCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 170,
+                  height: 152,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(15),
@@ -64,7 +64,9 @@ class ProductCard extends StatelessWidget {
                       placeholder: (context, url) => Container(
                         color: Colors.grey[100],
                         child: const Center(
-                          child: CircularProgressIndicator(),
+                          child: CircularProgressIndicator(
+                            color: AppColors.primaryColor,
+                          ),
                         ),
                       ),
                       errorWidget: (context, url, error) => Container(

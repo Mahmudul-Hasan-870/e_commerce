@@ -7,7 +7,7 @@ import 'package:iconly/iconly.dart';
 import '../../controllers/product_controller.dart';
 import '../../controllers/wishlist_controller.dart';
 import '../../models/wishlist_model.dart';
-import '../../views/details/product_details.dart';
+import '../../views/details/product_details_screen.dart';
 
 class WishlistItemCard extends StatelessWidget {
   final WishlistModel item;
@@ -63,7 +63,7 @@ class WishlistItemCard extends StatelessWidget {
               children: [
                 // Image Section
                 Container(
-                  height: 170,
+                  height: 152,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(15),
